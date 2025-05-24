@@ -589,6 +589,18 @@ html:not(.no-js) .no-js-show {
   margin-bottom: 20px;
 }
 
+.no-js .js-only {
+  display: none !important;
+}
+
+html:not(.no-js) .no-js-show {
+  display: none !important;
+}
+
+.no-js .no-js-show {
+  display: block !important;
+}
+
 /* Стили для модального окна */
 .modal {
   position: fixed;
