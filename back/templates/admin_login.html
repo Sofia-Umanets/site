@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Панель администратора - Вход{% endblock %}
+
+{% block content %}
+<section class="admin-login-section py-5">
+  <div class="container">
+    <h2 class="mb-4">Вход в панель администратора</h2>
+    
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+    {% endif %}
+    
+    <form method="POST" action="/admin/login">
+      <div class="mb-3">
+        <label for="username" class="form-label">Имя пользователя</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

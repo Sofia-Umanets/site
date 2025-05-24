@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Подтверждение удаления - ГБУ ДО КК «СШОР по настольному теннису»{% endblock %}
+
+{% block content %}
+<section class="confirm-delete-section py-5">
+  <div class="container">
+    <h2 class="mb-4">Подтверждение удаления аккаунта</h2>
+    
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-danger">Внимание!</h5>
+        <p class="card-text">Вы собираетесь удалить свой аккаунт и все связанные с ним данные. Эта операция не может быть отменена.</p>
+        <p class="card-text">Вы уверены, что хотите продолжить?</p>
+        
+        <div class="d-flex mt-4">
+          <a href="/users/{{ user_id }}/edit" class="btn btn-secondary me-2">Отмена</a>
+          
+          <form action="/users/{{ user_id }}/delete" method="POST">
+            <input type="hidden" name="confirm_delete" value="true">
+            <button type="submit" class="btn btn-danger">Да, удалить мой аккаунт</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

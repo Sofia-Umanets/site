@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Вход – ГБУ ДО КК «СШОР по настольному теннису»{% endblock %}
+
+{% block content %}
+  <section class="login-section" id="login-section">
+    <div class="container">
+      <h2>Вход</h2>
+
+      {% if success_message %}
+      <div class="alert alert-success" role="alert">
+          {{ success_message }}
+      </div>
+      {% endif %}
+
+      {% if errors.form %}
+        <div class="alert alert-danger" id="loginError">{{ errors.form }}</div>
+      {% endif %}
+
+      <form id="loginForm" method="POST" action="/login" novalidate>
+        <div class="mb-3">
+          <label for="login" class="form-label">Логин</label>
+          <input type="text" id="login" name="login" class="form-control{% if errors.login %} is-invalid{% endif %}" required value="{{ form_data.login or '' }}">
+          <div class="invalid-feedback">{{ errors.login }}</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Пароль</label>
+          <input type="password" id="password" name="password" class="form-control{% if errors.password %} is-invalid{% endif %}" required>
+          <div class="invalid-feedback">{{ errors.password }}</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Войти</button>
+      </form>
+
+      <div id="loginResult" class="mt-3"></div>
+    </div>
+  </section>
+
+  <script src="{{ STATIC_URL }}src/login.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector("#loginForm");
+      if (form && typeof initLoginForm === "function") {
+        initLoginForm(form);
+      }
+    });
+  </script>
+{% endblock %}

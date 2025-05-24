@@ -1,0 +1,7 @@
+{% if errors %}
+<div class="alert alert-danger">
+    {% for field, msg in errors.items() %}
+        <p><b>{{ field.capitalize() }}:</b> {{ msg }}</p>
+    {% endfor %}
+</div>
+{% endif %}

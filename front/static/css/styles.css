@@ -1,0 +1,831 @@
+/* ============ BASE ============ */
+body {
+  margin:0;
+  font:16px/1.4 'Exo 2',Arial,sans-serif;
+  color:#020202;
+}
+.container {
+  width:100%;max-width:100%;margin:0 auto;padding:0 10px;
+}
+h1 {
+  font-size:1.6em;
+  text-align:center;
+  color:#f2edf3;
+  text-shadow:2px 2px 4px rgba(216,159,216,.5);
+  margin:1rem 0;
+}
+h2 {
+  font-size:1.4em;
+  text-align:center;
+  margin:.5rem 0 1rem;
+}
+
+.hero-section {
+  position:relative;overflow:hidden;
+  height:40vh;min-height:200px;
+}
+.hero-section video,
+.hero-background-video {
+  position:absolute;top:50%;left:50%;
+  width:100%;height:100%;
+  transform:translate(-50%,-50%);
+  object-fit:cover;
+  z-index:-1;
+}
+.hero-overlay {
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.8);
+}
+.hero-content {
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  height:100%;padding:0 10px;
+  color:#fff;
+}
+
+
+.parents-info-section {
+  padding:40px 0;
+  background: rgb(242, 237, 243);
+}
+
+.features-section {
+  padding:40px 0;
+  background: #fff;
+}
+
+.trainers-section {
+  padding:40px 0;
+  background: rgb(242, 237, 243);
+}
+.parents-info-section p {
+  font-size:1em;
+  margin-bottom:1rem;
+  text-indent:20px;
+}
+.feature-box {
+  text-align:center;
+  margin-bottom:20px;
+}
+.feature-box i {
+  display:block;
+  font-size:1.8em;color:#007bff;
+  margin-bottom:.5rem;
+}
+
+/* GRID LISTS */
+.features-list,
+.trainers-list {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  padding:0 10px;
+}
+
+.trainer-card {
+  background:#fff;
+  padding:15px;
+  border-radius:5px;
+  box-shadow:0 2px 4px rgba(0,0,0,.1);
+  transition:transform .3s;
+}
+.trainer-card:hover {transform:translateY(-5px);}
+.trainer-card img {
+  width:100%;border-radius:5px;margin-bottom:.5rem;
+}
+
+/* слайдер */
+.gallery-section {
+  padding:30px 0;
+  background:#fff;
+}
+.slider {
+  width:100%;padding:10px 0;
+  background:#e5d8e9;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,.2);
+}
+.slick-slide {
+  margin:10px;
+}
+.slider__img {
+  width:100%;border-radius:10px;object-fit:cover;
+}
+.slick-prev:before,
+.slick-next:before {
+  color:#000!important;font-size:1.2em!important;
+}
+.slick-prev,
+.slick-next {
+  width:35px!important;height:35px!important;z-index:10!important;
+}
+
+.no-js .slider {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 10px;
+  background: #e5d8e9;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,.2);
+}
+
+.no-js .slick-slide {
+  margin: 0;
+  width: 100% !important;
+  display: block;
+}
+
+.no-js .slider__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+
+/* FOOTER */
+.footer {
+  padding:30px 0;
+  background:#343a40;
+  color:#fff;
+  text-align:center;
+  font-size:.9em;
+}
+.footer p {margin:.5rem 0}
+.social-links a {
+  color:#fff;margin:0 5px;font-size:1.2em;
+  transition:color .3s;
+}
+
+/* формы */
+.registration-form-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: rgb(242, 237, 243);
+  padding: 40px 0;
+}
+
+/* центрируем контент внутри */
+.registration-form-section .container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* заголовок формы */
+.registration-form-section h2 {
+  font-size: 1.5em;
+  text-align: center;
+  color: #543c74;
+  margin-bottom: 1.5rem;
+}
+
+#regForm,
+#editForm {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(80, 60, 100, .08);
+  padding: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#regForm .mb-3,
+#editForm .mb-3 {
+  margin-bottom: 1rem;
+}
+
+#regForm .form-label,
+#editForm .form-label {
+  display: block;
+  margin-bottom: .25rem;
+  font-weight: 600;
+  color: #351a76;
+}
+
+#regForm .form-control,
+#regForm textarea,
+#editForm .form-control,
+#editForm textarea {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 1em;
+  border: 1.5px solid #d6cbe6;
+  border-radius: 6px;
+  background: #faf8fd;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+#regForm .form-control:focus,
+#regForm textarea:focus,
+#editForm .form-control:focus,
+#editForm textarea:focus {
+  border-color: #7553af;
+  box-shadow: 0 0 0 .15rem rgba(120, 80, 160, .1);
+  background: #fff;
+}
+
+#regForm .form-check-label,
+#editForm .form-check-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#regForm .form-check-input,
+#editForm .form-check-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 0.5rem 0 0;
+  border: 2px solid #d6cbe6;
+  border-radius: 4px;
+  background-color: #faf8fd;
+  position: relative;
+  transition: background-color .2s, border-color .2s;
+}
+
+#regForm .form-check-input:focus,
+#editForm .form-check-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 .15rem rgba(120, 80, 160, .3);
+}
+
+/* состояние “checked” */
+#regForm .form-check-input:checked,
+#editForm .form-check-input:checked {
+  background-color: #7e5ae9;
+  border-color: #7e5ae9;
+}
+
+/* белая галочка */
+#regForm .form-check-input:checked::after,
+#editForm .form-check-input:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* контейнер для чекбокса + текста */
+#regForm .form-check,
+#editForm .form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* текст ошибки */
+#regForm .invalid-feedback,
+#editForm .invalid-feedback {
+  display: none;
+  color: #dc3545;
+  font-size: .9em;
+  margin-top: .25rem;
+}
+
+/* поле в состоянии ошибки */
+#regForm .is-invalid,
+#editForm .is-invalid {
+  border-color: #dc3545 !important;
+  background: #fff2f0;
+}
+
+/* показать текст ошибки */
+#regForm .form-control.is-invalid + .invalid-feedback,
+#regForm .form-check-input.is-invalid + .invalid-feedback,
+#editForm .form-control.is-invalid + .invalid-feedback,
+#editForm .form-check-input.is-invalid + .invalid-feedback {
+  display: block;
+}
+
+#regForm .btn-primary,
+#editForm .btn-primary {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 1rem;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #7e5ae9 10%, #9e32e2 90%);
+  color: #fff;
+  transition: background .2s;
+}
+
+#regForm .btn-primary:hover,
+#editForm .btn-primary:hover {
+  background: linear-gradient(90deg, #7e5ae9 5%, #7542bf 95%);
+}
+
+
+#regForm .btn-primary + .btn-primary,
+#editForm .btn-primary + .btn-primary {
+  margin-top: .75rem;
+}
+
+
+.login-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: rgb(242, 237, 243);
+  padding: 40px 0;
+}
+
+.login-section .container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.login-section h2 {
+  font-size: 1.5em;
+  text-align: center;
+  color: #543c74;
+  margin-bottom: 1.5rem;
+}
+
+#loginForm {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(80, 60, 100, .08);
+  padding: 24px;
+}
+
+#loginForm .btn-primary {
+  margin-top: 1rem;
+}
+
+.form-check-label {
+  color: #351a76;
+  user-select: none;
+}
+
+/* Уточним стиль для успешного сообщения */
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb; 
+  color: #155724;  
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+  font-size: 1.1em;
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+
+/* Заголовок внутри alert (если есть) */
+.alert-success h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #155724;
+}
+
+/* Если нужно отступы внутри alert, добавить */
+.alert-success p {
+  margin-bottom: 0;
+}
+
+/* Удобное центрирование и отступ сверху */
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+textarea {
+  resize: none !important;
+}
+
+/* Стили для модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1050;
+  display: none;
+}
+
+.modal-dialog {
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.btn-close {
+  background: transparent;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.js-only {
+  display: none;
+}
+
+.no-js-show {
+  display: block;
+}
+
+/* Стили для админки */
+.admin-dashboard .table {
+  font-size: 14px;
+}
+
+.admin-dashboard .table th {
+  background-color: #f8f9fa;
+}
+
+.admin-dashboard .table-responsive {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.admin-login-section {
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.admin-login-section form {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.admin-dashboard .table-responsive {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.admin-dashboard .table {
+  font-size: 14px;
+}
+
+.admin-dashboard .table th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+}
+
+.admin-dashboard .form-label {
+  font-weight: 500;
+}
+
+#noResults {
+  text-align: center;
+  padding: 20px;
+}
+
+#resetFilters {
+  height: 38px;
+}
+
+.char-counter {
+  font-size: 0.8em;
+  margin-left: 8px;
+}
+.text-danger {
+  color: #dc3545 !important;
+}
+.text-warning {
+  color: #ffc107 !important;
+}
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Навигационная панель */
+.edit-page-nav {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.edit-page-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-page-nav h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  margin: 0;
+}
+
+.nav-buttons a {
+  margin-left: 10px;
+}
+
+.js-only {
+  display: none;
+}
+
+.no-js .no-js-show {
+  display: block;
+}
+
+html:not(.no-js) .no-js-show {
+  display: none;
+}
+
+/* Блок удаления аккаунта */
+.delete-account-block {
+  background-color: #fff8f8;
+  border: 1px solid #ffcccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.delete-account-block h3 {
+  color: #dc3545;
+  margin-top: 0;
+}
+
+.delete-account-block p {
+  margin-bottom: 20px;
+}
+
+/* Стили для модального окна */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  display: none;
+}
+
+.modal-dialog {
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: rgb(189, 9, 9);
+  border-radius: 5px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.btn-close {
+  background: transparent;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.char-counter {
+  font-size: 0.8em;
+  margin-left: 8px;
+  color: #6c757d;
+}
+
+.char-counter.text-danger {
+  color: #dc3545 !important;
+}
+
+.char-counter.text-warning {
+  color: #ffc107 !important;
+}
+
+.char-counter.text-muted {
+  color: #6c757d !important;
+}
+
+.btn-outline-light {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.btn-outline-light:hover {
+  color: #212529;
+  background-color: #e2e6ea;
+  border-color: #dae0e5;
+}
+
+#editResult {
+  margin-top: 15px;
+}
+
+#editResult .alert {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .edit-page-nav .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-page-nav h1 {
+    margin-bottom: 10px;
+  }
+
+  .nav-buttons {
+    display: flex;
+    width: 100%;
+  }
+
+  .nav-buttons a {
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+  }
+
+  .nav-buttons a:first-child {
+    margin-left: 0;
+  }
+
+  .nav-buttons a:last-child {
+    margin-right: 0;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+
+  body {
+    font-size:17px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
+
+  .slick-slide {
+    margin: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+
+  body {
+    font-size: 18px;
+  }
+
+  .hero-section {
+    height: 45vh;
+    min-height: 250px;
+  }
+
+  .features-list,
+  .trainers-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .slider .slick-slide {
+    width: calc(50% - 24px);
+    margin: 12px;
+  }
+
+  .slider__img {
+    max-height: 300px;
+  }
+
+  .no-js .slider {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+
+  body {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2.2em;
+  }
+
+  .hero-section {
+    height: 60vh;
+  }
+
+  .features-list,
+  .trainers-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .slider .slick-slide {
+    width: calc(33.33% - 30px);
+    margin: 15px;
+  }
+
+  .slider__img {
+    max-height: 400px;
+  }
+
+  .social-links a {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1140px;
+  }
+
+  .features-list,
+  .trainers-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .slider .slick-slide {
+    width: calc(25% - 32px);
+    margin: 16px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1366px;
+  }
+
+  body {
+    font-size: 1.125rem;
+  }
+}
