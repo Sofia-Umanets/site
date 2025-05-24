@@ -55,7 +55,6 @@ function updateCharCounter(textarea, counterId, maxLength = 200) {
     const currentLength = textarea.value.length;
     counter.textContent = `${currentLength}/${maxLength}`;
     
-    // Изменение цвета счетчика при приближении к лимиту
     if (currentLength >= maxLength) {
         counter.classList.add('text-danger');
         counter.classList.remove('text-muted', 'text-warning');
@@ -85,7 +84,6 @@ function sendEdit(event) {
         input => { if (input) setValid(input); }
     );
     
-    // Также очищаем ошибки для комментария
     if (comment) setValid(comment);
 
     // Валидируем на клиенте
@@ -97,14 +95,12 @@ function sendEdit(event) {
     if (email) valid = validateEmail(email) && valid;
     if (consent) valid = validateConsent(consent) && valid;
     
-    // Добавляем валидацию комментария
     if (comment) {
         valid = validateComment(comment) && valid;
     }
 
-    if (!valid) return; // Останавливаем, если есть ошибки валидации на клиенте
+    if (!valid) return;
 
-    // Получаем ID пользователя из data-атрибута формы
     const userId = form.getAttribute('data-user-id');
 
     if (!userId) {
@@ -112,7 +108,6 @@ function sendEdit(event) {
         return;
     }
 
-    // Собираем данные формы
     const data = {
         child_name: childName ? childName.value.trim() : '',
         child_birthdate: childBirthdate ? childBirthdate.value : '',
@@ -123,10 +118,8 @@ function sendEdit(event) {
         consent: consent ? consent.checked : false
     };
 
-    // Очищаем предыдущие результаты
     clearMessages();
 
-    // Отправляем данные методом PUT на RESTful URL
     fetch(`/users/${userId}`, {
         method: "PUT",
         headers: {
@@ -150,7 +143,6 @@ function sendEdit(event) {
         }
     })
     .catch(error => {
-        // Если пришли ошибки валидации с сервера
         if (error.errors) {
             Object.entries(error.errors).forEach(([field, message]) => {
                 const input = form.querySelector(`[name=${field}]`);
@@ -226,7 +218,7 @@ function initDeleteButton(button, userId) {
             headers: {
                 'Accept': 'application/json'
             },
-            credentials: 'same-origin'  // Важно для отправки куки
+            credentials: 'same-origin'  // Для отправки куки
         })
         .then(response => {
             if (!response.ok) {
@@ -256,15 +248,9 @@ function initDeleteButton(button, userId) {
 }
 
 function initEditForm(form) {
-    // Если JavaScript включен, перехватываем стандартную отправку формы
     form.addEventListener("submit", function(event) {
-        // Предотвращаем стандартную отправку формы
         event.preventDefault();
-        
-        // Вызываем функцию для асинхронной отправки
         sendEdit(event);
-        
-        // Чтобы точно предотвратить перезагрузку страницы
         return false;
     });
     
@@ -291,25 +277,19 @@ function initEditForm(form) {
     }
 }
 
-// При загрузке DOM настраиваем отображение элементов в зависимости от поддержки JS
 document.addEventListener('DOMContentLoaded', function() {
-    // Показываем элементы для JS и скрываем для non-JS
     document.querySelectorAll('.js-only').forEach(el => el.style.display = 'inline-block');
     document.querySelectorAll('.no-js-show').forEach(el => el.style.display = 'none');
     
-    // Инициализация всех счетчиков символов на странице
     document.querySelectorAll('textarea#comment').forEach(textarea => {
         if (!textarea.closest('form').querySelector('.char-counter')) {
-            // Установка maxlength
             textarea.setAttribute('maxlength', '200');
             
-            // Создаем уникальный ID для счетчика
             const counterId = 'commentCounter_' + Math.random().toString(36).substring(2, 7);
             
-            // Инициализируем счетчик
             updateCharCounter(textarea, counterId, 200);
             
-            // Добавляем обработчик события ввода
+            // Ввод
             textarea.addEventListener('input', function() {
                 updateCharCounter(this, counterId, 200);
             });

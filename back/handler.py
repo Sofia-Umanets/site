@@ -30,7 +30,7 @@ FRONTEND_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "f
 
 class HTTPHandler(BaseHTTPRequestHandler):
     paths = {"GET": {}, "POST": {}, "PUT": {}, "DELETE": {}}
-    dynamic_paths = {"GET": {}, "POST": {}, "PUT": {}, "DELETE": {}}  # Для динамических маршрутов
+    dynamic_paths = {"GET": {}, "POST": {}, "PUT": {}, "DELETE": {}} 
 
     def parse_request(self) -> bool:
         result = super().parse_request()
@@ -38,7 +38,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
         self.original_path = parse.path  # Сохраняем оригинальный путь
         self.path = parse.path
         self.query = parse.query
-        self.path_params = {}  # Будет хранить параметры из пути
+        self.path_params = {}  # параметры из пути
         return result
 
     def __init__(self, *args, **kwargs):
@@ -58,7 +58,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
             path=self.path,
             query=self.query,
             body=body,
-            params=self.path_params  # Добавляем параметры пути в запрос
+            params=self.path_params  # параметры пути
         )
 
     def resp(self, response: Response):
@@ -76,7 +76,7 @@ class HTTPHandler(BaseHTTPRequestHandler):
                 self.wfile.write(response.content.encode())
 
     def find_dynamic_handler(self, method):
-        """Находит обработчик для динамического пути"""
+        #Находит обработчик для динамического пути
         for pattern, handler in self.dynamic_paths[method].items():
             path_parts = self.path.split('/')
             pattern_parts = pattern.split('/')
@@ -364,7 +364,7 @@ def handle_form_submission(request: Request, session: Session) -> Response:
         else:
             # Для обычных форм используем 303 See Other, что предотвратит повторную отправку
             return Response(
-                303,  # Важно использовать 303, а не 302
+                303, 
                 {"Location": "/#registration-form"},
                 cookie,
                 ""
@@ -506,7 +506,7 @@ def edit_form_page(request: Request, session: Session) -> Response:
     response_cookie = SimpleCookie()
     
     if "update_success" in request.cookie and request.cookie["update_success"].value == "1":
-        success_message = "Данные успешно обновлены"  # Текст на русском добавляем здесь
+        success_message = "Данные успешно обновлены"
         response_cookie["update_success"] = "0"
         response_cookie["update_success"]["path"] = "/"
 
@@ -600,7 +600,6 @@ def update_user_data(request: Request, session: Session) -> Response:
             )
             
     except ValidationError as e:
-        # Обработка ошибок валидации
         errors = {}
         for err in e.errors():
             # Получаем имя поля и сообщение об ошибке
@@ -624,7 +623,6 @@ def update_user_data(request: Request, session: Session) -> Response:
                 json.dumps({"errors": errors})
             )
         else:
-            # Для обычных форм возвращаем HTML с ошибками и сохраненными данными
             content = TEMPLATE_ENVIRONMENT.get_template("edit.html").render(
                 form_data=form_data,
                 errors=errors,
@@ -635,7 +633,6 @@ def update_user_data(request: Request, session: Session) -> Response:
             return Response(400, {"Content-Type": "text/html"}, SimpleCookie(), content)
             
     except Exception as e:
-        # Получаем текст ошибки и удаляем префикс "Value error, " если он есть
         error_message = str(e)
         if error_message.startswith("Value error, "):
             error_message = error_message[13:]
@@ -649,9 +646,8 @@ def update_user_data(request: Request, session: Session) -> Response:
                 json.dumps({"errors": errors})
             )
         else:
-            # Возвращаем форму с общей ошибкой и данными пользователя
             content = TEMPLATE_ENVIRONMENT.get_template("edit.html").render(
-                form_data=form_data,  # Сохраняем введенные данные
+                form_data=form_data,
                 errors=errors,
                 STATIC_URL=STATIC_URL,
                 DEFAULT_URL=DEFAULT_URL,
@@ -712,8 +708,7 @@ def delete_user(request: Request, session: Session) -> Response:
             )
     
     # Обработка POST запроса (без JavaScript)
-    else:  # request.method == "POST"
-        # Получаем данные формы
+    else:
         content_type = request.headers.get("Content-Type", "")
         form_data = {}
         
@@ -853,7 +848,6 @@ def admin_dashboard(request: Request, session: Session) -> Response:
         birth_year = ""
         try:
             if form.child_birthdate:
-                # Предполагается, что дата в формате YYYY-MM-DD
                 birth_year = form.child_birthdate.split('-')[0]
                 birth_years.add(birth_year)
         except Exception:
@@ -889,7 +883,6 @@ def admin_logout(request: Request, session: Session) -> Response:
         admin_token_value = request.cookie["admin_token"].value
     
     if admin_token_value:
-        # Инвалидируем токен в базе данных
         AdminToken.invalidate_token(session, admin_token_value)
     
     # Очищаем куки

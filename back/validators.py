@@ -15,7 +15,6 @@ class RegistrationFormModel(BaseModel):
     comment: Optional[str] = Field(None, description="Комментарий")
     consent: bool = Field(..., description="Согласие на обработку данных")
 
-    # Вернёмся к более простому подходу без универсального валидатора
     @validator("child_name", "parent_name")
     def valid_name(cls, v: str) -> str:
         if not v or not v.strip():

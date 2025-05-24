@@ -10,7 +10,6 @@ function setInvalid(input, message, immediate = false) {
             feedback.innerHTML = message;
         }
     } else {
-        // Сохраняем сообщение об ошибке для будущего использования
         input.dataset.errorMessage = message;
     }
 }
@@ -27,11 +26,9 @@ function setValid(input, immediate = false) {
             feedback.innerHTML = "";
         }
     }
-    // Удаляем сохраненное сообщение об ошибке
     delete input.dataset.errorMessage;
 }
 
-// Функция валидации имени
 function validateName(input) {
     const re = /^[A-Za-zА-Яа-яЁё\s\-]+$/;
     if (!re.test(input.value.trim())) {
@@ -42,32 +39,25 @@ function validateName(input) {
     return true;
 }
 
-// Исправленная функция валидации телефона
 function validatePhone(input) {
     const phoneValue = input.value.trim();
     
-    // Проверка на пустое значение
     if (!phoneValue) {
         setInvalid(input, "Введите номер телефона");
         return false;
     }
-    
-    // Извлекаем только цифры из номера телефона
     const digitsOnly = phoneValue.replace(/\D/g, '');
     
-    // Проверка на длину
     if (digitsOnly.length !== 11) {
         setInvalid(input, "Номер телефона должен содержать 11 цифр");
         return false;
     }
     
-    // Проверка на начало номера
     if (!(digitsOnly.startsWith('7') || digitsOnly.startsWith('8'))) {
         setInvalid(input, "Номер должен начинаться с 7 или 8");
         return false;
     }
     
-    // Проверка формата номера
     const re = /^(\+7|7|8)[\s\-]?\(?[9]\d{2}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
     if (!re.test(phoneValue)) {
         setInvalid(input, "Неверный формат телефона. Пример: +7 (999) 123-45-67");
@@ -78,7 +68,6 @@ function validatePhone(input) {
     return true;
 }
 
-// Функция валидации email
 function validateEmail(input) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!re.test(input.value.trim())) {
@@ -89,7 +78,6 @@ function validateEmail(input) {
     return true;
 }
 
-// Функция валидации даты
 function validateDate(input) {
     if (!input.value) {
         setInvalid(input, "Введите дату");
@@ -110,7 +98,6 @@ function validateDate(input) {
     return true;
 }
 
-// Функция валидации согласия
 function validateConsent(input) {
     if (!input.checked) {
         setInvalid(input, "Требуется согласие");
@@ -120,7 +107,6 @@ function validateConsent(input) {
     return true;
 }
 
-// Функция валидации комментария
 function validateComment(input) {
     const comment = input.value;
     if (comment.length > 200) {
@@ -131,19 +117,15 @@ function validateComment(input) {
     return true;
 }
 
-// Функция обновления счетчика символов
 function updateCharCounter(textarea, counterId, maxLength = 200) {
     let counter = document.getElementById(counterId);
     if (!counter) {
-        // Если счетчик не существует, создаем его
         counter = document.createElement('span');
         counter.id = counterId;
         counter.className = 'char-counter text-muted';
         
-        // Находим метку для поля и добавляем счетчик к ней
         const label = textarea.closest('.mb-3').querySelector('label');
         if (label) {
-            // Убеждаемся, что счетчик еще не добавлен
             if (!label.querySelector('.char-counter')) {
                 label.appendChild(document.createTextNode(' '));
                 label.appendChild(counter);
@@ -151,11 +133,9 @@ function updateCharCounter(textarea, counterId, maxLength = 200) {
         }
     }
     
-    // Обновляем текст счетчика
     const currentLength = textarea.value.length;
     counter.textContent = `${currentLength}/${maxLength}`;
     
-    // Изменение цвета счетчика при приближении к лимиту
     if (currentLength >= maxLength) {
         counter.classList.add('text-danger');
         counter.classList.remove('text-muted', 'text-warning');
@@ -168,7 +148,6 @@ function updateCharCounter(textarea, counterId, maxLength = 200) {
     }
 }
 
-// Функция очистки формы
 function fullFormClear(form) {
     form.querySelectorAll("input, textarea, select").forEach(el => {
         if (el.type === "checkbox" || el.type === "radio") {
@@ -180,7 +159,6 @@ function fullFormClear(form) {
         delete el.dataset.validated;
     });
     
-    // Обновляем счетчики символов при очистке формы
     const commentAreas = form.querySelectorAll('textarea#comment');
     commentAreas.forEach(textarea => {
         const counterEl = textarea.closest('.mb-3').querySelector('.char-counter');
@@ -190,7 +168,6 @@ function fullFormClear(form) {
     });
 }
 
-// Функция отправки формы
 function sendForm(event, method) {
     event.preventDefault();
     const form = event.target;
@@ -243,9 +220,9 @@ function sendForm(event, method) {
         body: JSON.stringify(data),
     })
     .then((response) => {
-        if (!response.ok) { // любые ошибки
+        if (!response.ok) { 
             return response.json().then((errors) => {
-                // если есть поля-ошибки, покажем:
+            
                 if (typeof errors === "object") {
                     Object.entries(errors).forEach(([name, msg]) => {
                         const input = form.querySelector(`[name=${name}]`);
@@ -291,10 +268,8 @@ function initForm(form, method = "POST") {
 
     form.addEventListener("submit", event => sendForm(event, method));
     
-    // Инициализация счетчика символов
     const commentArea = form.querySelector('textarea#comment');
     if (commentArea) {
-        // Устанавливаем maxlength для textarea
         commentArea.setAttribute('maxlength', '200');
         
         const commentCounterId = 'commentCounter_' + Math.random().toString(36).substring(2, 7);
@@ -305,12 +280,11 @@ function initForm(form, method = "POST") {
         });
     }
     
-    // Добавляем обработчики событий для проверки полей при изменении
+    // Обработчики событий для проверки полей при изменении
     form.querySelectorAll('input, textarea, select').forEach(input => {
         input.addEventListener('blur', function() {
             this.dataset.validated = 'true';
             
-            // Применяем соответствующую валидацию в зависимости от типа поля
             if (this.name === 'child_name' || this.name === 'parent_name') {
                 validateName(this);
             } else if (this.name === 'child_birthdate') {

@@ -1,8 +1,4 @@
-/**
- * Функции для администраторской панели
- */
 
-// Функция инициализации админ-панели
 function initAdminDashboard() {
     const searchInput = document.getElementById('searchInput');
     const yearFilter = document.getElementById('yearFilter');
@@ -93,7 +89,6 @@ function initAdminDashboard() {
     // Инициализация панели администратора
     initAdminDashboard();
     
-    // Инициализация кнопки экспорта (если есть)
     const exportBtn = document.getElementById('exportBtn');
     if (exportBtn) {
       exportBtn.addEventListener('click', exportTableToCSV);

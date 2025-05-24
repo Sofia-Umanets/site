@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 
 def wait_for_db(max_retries=30, retry_interval=2):
-    """Ожидает готовности базы данных с повторными попытками подключения"""
+    
     username = os.environ.get('DB_USERNAME')
     password = os.environ.get('DB_PASSWORD')
     database = os.environ.get('DB_NAME')
@@ -21,7 +21,6 @@ def wait_for_db(max_retries=30, retry_interval=2):
     
     while not connected and retry_count < max_retries:
         try:
-            # Пытаемся выполнить простой запрос
             with engine.connect() as conn:
                 conn.execute(text("SELECT 1"))
             connected = True

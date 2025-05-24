@@ -223,7 +223,7 @@ def check_admin_token(headers: dict, session: Session) -> Optional[int]:
     if not auth_header or not auth_header.startswith("Bearer "):
         return None
     
-    token_value = auth_header[7:]  # Remove "Bearer " prefix
+    token_value = auth_header[7:]
     
     # Проверяем и инвалидируем просроченные токены
     session.exec(
